@@ -10,6 +10,7 @@ const timeMiddleware = require('./middlewares/timeMiddleware');
 const authRoutes = require('./routes/authRoutes');
 const linkRoutes = require('./routes/linkRoutes');
 const getLinkRoutes = require('./routes/getLinkRoutes')
+const dashboardRoutes = require('./routes/dashboardRoutes')
 
 
 
@@ -27,6 +28,7 @@ app.use(timeMiddleware);
 app.use('/auth', authRoutes);
 app.use('/link', linkRoutes);
 app.use('/getLink', getLinkRoutes);
+app.use('/dashboard', dashboardRoutes)
 
 
 

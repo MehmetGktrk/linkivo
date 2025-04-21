@@ -2,11 +2,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+// Define midlewares
 const databaseMiddleware = require('./middlewares/databaseMiddleware');
 const timeMiddleware = require('./middlewares/timeMiddleware');
 
-
-const authRoutes = require('./routes/authRoutes')
+// Define Routes
+const authRoutes = require('./routes/authRoutes');
+const linkRoutes = require('./routes/linkRoutes');
+const getLinkRoutes = require('./routes/getLinkRoutes')
 
 
 
@@ -21,7 +24,9 @@ app.use(databaseMiddleware);
 app.use(timeMiddleware);
 
 
-app.use('/auth', authRoutes)
+app.use('/auth', authRoutes);
+app.use('/link', linkRoutes);
+app.use('/getLink', getLinkRoutes);
 
 
 

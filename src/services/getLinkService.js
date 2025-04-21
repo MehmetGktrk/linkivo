@@ -24,7 +24,7 @@ exports.getShortLink = async(db, shortLink) => {
     })
 
     // Return response
-    return { code: 200, message: 'Link access successful.', link: findShortLink.defaultLink };
+    return { code: 200, message: 'Link access successful.', link: findShortLink.defaultLink, qr: findShortLink.qrLink };
 
 
 } 

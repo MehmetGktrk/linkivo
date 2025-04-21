@@ -11,6 +11,22 @@ exports.createLink = async(db, now, username, defaultLink, shortLink) => {
     if(checkAvailable){
         return { code: 400, message: 'This short link is already in use.' };
     }
+
+    // Function to check if the link is valid 
+    function checkLink(param){
+        try {
+            const url = new URL(param);
+            return url.protocol === "http:" || url.protocol === "https:";
+        } catch {
+            return false;
+        }
+    }
+
+    // éCheck if the link is valid.
+    if(!checkLink(defaultLink)){
+        return { code: 400, message: 'Link is invalid' }
+    }
+
     // define ShortLink data
     const newShortLink = {
         linkOwner: username,

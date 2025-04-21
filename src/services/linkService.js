@@ -1,4 +1,5 @@
-
+const QRCode = require("qrcode")
+const config = require("../config/config")
 
 
 exports.createLink = async(db, now, username, defaultLink, shortLink) => {
@@ -22,10 +23,14 @@ exports.createLink = async(db, now, username, defaultLink, shortLink) => {
         }
     }
 
-    // éCheck if the link is valid.
+    // Check if the link is valid.
     if(!checkLink(defaultLink)){
         return { code: 400, message: 'Link is invalid' }
     }
+
+    const fullShortLink = `${config.domain}/getLink/${shortLink}`
+    const qrlink = await QRCode.toDataURL(fullShortLink);
+
 
     // define ShortLink data
     const newShortLink = {
@@ -33,6 +38,7 @@ exports.createLink = async(db, now, username, defaultLink, shortLink) => {
         isActive: true,
         defaultLink: defaultLink,
         shortLink: shortLink,
+        qrLink: qrlink,
         createdTime: now,
         visitors: 0
     }
@@ -42,7 +48,7 @@ exports.createLink = async(db, now, username, defaultLink, shortLink) => {
 
     // Check if it was saved.
     if(saveLink.insertedId){
-        return { code: 200, message: 'The link has been shortened.'};
+        return { code: 200, message: 'The link has been shortened.' };
     }
     else{
         return { code: 400, message: 'The link could not be shortened.' };

@@ -7,7 +7,7 @@ exports.getShortLink = async(req, res) => {
         // Call getLinkService.getShortLink function.
         const result = await getLinkService.getShortLink(req.db, shortLink);
         // Return response to user.
-        return res.status(result.code).json({ code: result.code, message: result.message, link: result.link });
+        return res.status(result.code).json({ code: result.code, message: result.message, link: result.link, qr: result.qr });
     } catch (err) {
         // If catch error.
         console.error(err);
